@@ -1,4 +1,6 @@
-﻿using System.Data.Entity.Migrations;
+﻿using ImporterDomain.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Migrations;
 
 namespace ImporterData.Migrations
 {
@@ -11,10 +13,83 @@ namespace ImporterData.Migrations
 
         protected override void Seed(ImporterData.ImporterDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            context.Debtors.AddOrUpdate(
+              f => f.AccountNumber,
+              new DebtorModel
+              {
+                  DebtType = "Residential",
+                  AccountNumber = 1111111,
+                  AccountName = "Huber",
+                  BirthDate = Convert.ToDateTime("11/11/11"),
+                  Balance = 111.11,
+                  Email = "amorrison@gmail.com",
+                  PhoneNumber = 1231211,
+                  FirstAddress = "2 Oak Road",
+                  SecondAddress = "Wowee",
+                  ThirdAddress = "Scotland",
+                  PostCode = "FK1 2AD",
+              });
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
+            context.Debtors.AddOrUpdate(
+              f => f.AccountNumber,
+              new DebtorModel
+              {
+                  DebtType = "Residential",
+                  AccountNumber = 1111111,
+                  AccountName = "Huber",
+                  BirthDate = Convert.ToDateTime("11/11/11"),
+                  Balance = 111.11,
+                  Email = "amorrison@gmail.com",
+                  PhoneNumber = 1231211,
+                  FirstAddress = "2 Oak Road",
+                  SecondAddress = "Wowee",
+                  ThirdAddress = "Scotland",
+                  PostCode = "FK1 2AD",
+              });
+
+            context.Debtors.AddOrUpdate(
+              f => f.AccountNumber,
+              new DebtorModel
+              {
+                  DebtType = "Residential",
+                  AccountNumber = 1111111,
+                  AccountName = "Huber",
+                  BirthDate = Convert.ToDateTime("11/11/11"),
+                  Balance = 111.11,
+                  Email = "amorrison@gmail.com",
+                  PhoneNumber = 1231211,
+                  FirstAddress = "2 Oak Road",
+                  SecondAddress = "Wowee",
+                  ThirdAddress = "Scotland",
+                  PostCode = "FK1 2AD",
+              });
         }
+
+
+
+            public string? DebtType { get; set; }
+
+        [Key]
+        public int AccountNumber { get; set; }
+
+        public string? AccountName { get; set; }
+
+        public DateTime? BirthDate { get; set; }
+
+        public double? Balance { get; set; }
+
+        public string? Email { get; set; }
+
+        public long? PhoneNumber { get; set; }
+
+        public string? FirstAddress { get; set; }
+
+        public string? SecondAddress { get; set; }
+
+        public string? ThirdAddress { get; set; }
+
+        public string? PostCode { get; set; }
+
+        public ICollection<PaymentModel> Payments { get; set; }
     }
 }

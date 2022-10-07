@@ -1,4 +1,6 @@
-﻿using ImporterUI.ViewModels;
+﻿using ImporterData;
+using ImporterUI.Data;
+using ImporterUI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
@@ -24,6 +26,9 @@ namespace ImporterUI
         {
             services.AddTransient<MainWindow>();
             services.AddTransient<MainViewModel>();
+            services.AddTransient<DebtorsViewModel>();
+            services.AddTransient<ImporterDbContext>();
+            services.AddTransient<IDebtorRespository, DebtorRespository>();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -33,3 +38,4 @@ namespace ImporterUI
         }
     }
 }
+    

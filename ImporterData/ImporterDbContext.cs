@@ -10,7 +10,7 @@ namespace ImporterData
 {
     public class ImporterDbContext : DbContext
     {
-        public DbSet<PersonModel> Persons { get; set; }
+        public DbSet<DebtorModel> Debtors { get; set; }
         public DbSet<PaymentModel> Payments { get; set; }
     }
 }

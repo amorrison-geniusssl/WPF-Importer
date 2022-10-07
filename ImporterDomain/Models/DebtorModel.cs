@@ -7,8 +7,15 @@ using System.Threading.Tasks;
 
 namespace ImporterDomain.Models
 {
-    public class PersonModel
+    public class DebtorModel
     {
+        private DebtorModel customer;
+
+        public DebtorModel()
+        {
+
+        }
+
         public string? DebtType { get; set; }
 
         [Key]

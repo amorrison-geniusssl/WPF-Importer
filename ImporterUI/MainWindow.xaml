@@ -4,8 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImporterUI"
+        xmlns:view="clr-namespace:ImporterUI.Views"
+        xmlns:viewModel="clr-namespace:ImporterUI.ViewModels" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:DebtorsViewModel}">
+            <view:DebtorView/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,27 +23,19 @@
             <RowDefinition/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="20"/>
-        </Grid.ColumnDefinitions>
 
         <Menu FontSize="20"
               Grid.ColumnSpan="6">
             <MenuItem Header="_Load">
-                <MenuItem Header="_People"
+                <MenuItem Header="_Debtors"
                           Command="{Binding SelectViewModelCommand}"
-                          CommandParameter="{Binding CustomersViewModel}"/>
+                          CommandParameter="{Binding DebtorsViewModel}"/>
 
-                <MenuItem Header="_Payments"
+                <!--<MenuItem Header="_Payments"
                           Command="{Binding SelectViewModelCommand}"
-                          CommandParameter="{Binding ProductsViewModel}"/>
+                          CommandParameter="{Binding ProductsViewModel}"/>-->
             </MenuItem>
         </Menu>
-
+        <ContentControl Grid.Row="3" Grid.RowSpan="5" Content="{Binding SelectedViewModel}"/>
     </Grid>
 </Window>
