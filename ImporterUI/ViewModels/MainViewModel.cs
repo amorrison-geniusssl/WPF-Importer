@@ -8,9 +8,11 @@ namespace ImporterUI.ViewModels
         private ViewModelBase? viewModelBase;
 
 
-        public MainViewModel(DebtorsViewModel debtorsViewModel)
+        public MainViewModel(DebtorsViewModel debtorsViewModel, PaymentsViewModel paymentsViewModel)
         {
             DebtorsViewModel = debtorsViewModel;
+            PaymentsViewModel = paymentsViewModel;
+
             SelectedViewModel = DebtorsViewModel;
 
             SelectViewModelCommand = new DelegateCommand(SelectViewModel);
@@ -28,6 +30,7 @@ namespace ImporterUI.ViewModels
             }
         }
         public DebtorsViewModel DebtorsViewModel { get; }
+        public PaymentsViewModel PaymentsViewModel { get; }
         public DelegateCommand SelectViewModelCommand { get; }
 
         public override async Task LoadAsync()

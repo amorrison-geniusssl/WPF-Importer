@@ -13,6 +13,9 @@
         <DataTemplate DataType="{x:Type viewModel:DebtorsViewModel}">
             <view:DebtorView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:PaymentsViewModel}">
+            <view:PaymentView/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -26,14 +29,14 @@
 
         <Menu FontSize="20"
               Grid.ColumnSpan="6">
-            <MenuItem Header="_Load">
+            <MenuItem Header="Insert New">
                 <MenuItem Header="_Debtors"
                           Command="{Binding SelectViewModelCommand}"
                           CommandParameter="{Binding DebtorsViewModel}"/>
 
-                <!--<MenuItem Header="_Payments"
+                <MenuItem Header="_Payments"
                           Command="{Binding SelectViewModelCommand}"
-                          CommandParameter="{Binding ProductsViewModel}"/>-->
+                          CommandParameter="{Binding PaymentsViewModel}"/>
             </MenuItem>
         </Menu>
         <ContentControl Grid.Row="3" Grid.RowSpan="5" Content="{Binding SelectedViewModel}"/>

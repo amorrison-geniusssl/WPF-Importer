@@ -26,7 +26,10 @@ namespace ImporterUI
         {
             services.AddTransient<MainWindow>();
             services.AddTransient<MainViewModel>();
+
             services.AddTransient<DebtorsViewModel>();
+            services.AddTransient<PaymentsViewModel>();
+
             services.AddTransient<ImporterDbContext>();
             services.AddTransient<IDebtorRespository, DebtorRespository>();
         }

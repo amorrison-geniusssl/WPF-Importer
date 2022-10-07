@@ -33,12 +33,12 @@ namespace ImporterUI.ViewModels
                 return;
             }
 
-            var customers = await _debtorRepository.GetAllAsync();
-            if (customers != null)
+            var debtors = await _debtorRepository.GetAllAsync();
+            if (debtors != null)
             {
-                foreach (var customer in customers)
+                foreach (var debtor in debtors)
                 {
-                    Debtors.Add(customer);
+                    Debtors.Add(debtor);
                 }
             }
         }

@@ -9,13 +9,6 @@ namespace ImporterDomain.Models
 {
     public class DebtorModel
     {
-        private DebtorModel customer;
-
-        public DebtorModel()
-        {
-
-        }
-
         public string? DebtType { get; set; }
 
         [Key]
