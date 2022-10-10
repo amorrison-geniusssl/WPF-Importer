@@ -20,9 +20,9 @@ namespace ImporterUI.ViewModels
 
             SelectViewModelCommand = new DelegateCommand(SelectViewModel);
             SelectFilePath = new DelegateCommand(SelectPath);
+            LoadSelectedFile = new DelegateCommand(DisplayFile);
         }
 
-        
 
         public ViewModelBase? SelectedViewModel
         {
@@ -49,6 +49,7 @@ namespace ImporterUI.ViewModels
         public PaymentsViewModel PaymentsViewModel { get; }
         public DelegateCommand SelectViewModelCommand { get; }
         public DelegateCommand SelectFilePath { get; }
+        public DelegateCommand LoadSelectedFile { get; }
 
         public override async Task LoadAsync()
         {
@@ -71,7 +72,18 @@ namespace ImporterUI.ViewModels
             openFileDialog.DefaultExt = ".csv";
             openFileDialog.Filter = "CSV files (*.csv)|*.csv";
 
+            var path = openFileDialog.ShowDialog();
             FilePath = openFileDialog.FileName;
         }
+
+        private async void DisplayFile(object? obj)
+        {
+            
+            if (SelectedViewModel != null)
+            {
+                await SelectedViewModel.LoadFileAsync(FilePath);
+            }
+        }
+
     }
 }

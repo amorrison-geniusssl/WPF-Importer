@@ -9,6 +9,23 @@ namespace ImporterDomain.Models
 {
     public class DebtorModel
     {
+        public DebtorModel() { }
+
+        public DebtorModel(string? debtType, int accountNumber, string? accountName, DateTime? birthDate, double? balance, string? email, long? phoneNumber, string? firstAddress, string? secondAddress, string? thirdAddress, string? postCode)
+        {
+            DebtType = debtType;
+            AccountNumber = accountNumber;
+            AccountName = accountName;
+            BirthDate = birthDate;
+            Balance = balance;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            FirstAddress = firstAddress;
+            SecondAddress = secondAddress;
+            ThirdAddress = thirdAddress;
+            PostCode = postCode;
+        }
+
         public string? DebtType { get; set; }
 
         [Key]

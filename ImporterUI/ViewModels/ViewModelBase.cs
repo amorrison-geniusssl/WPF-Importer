@@ -21,5 +21,10 @@ namespace ImporterUI.ViewModels
         {
             return Task.CompletedTask;
         }
+
+        public virtual Task LoadFileAsync(string filePath)
+        {
+            return Task.CompletedTask;
+        }
     }
 }

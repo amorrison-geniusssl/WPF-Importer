@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ImporterBusiness\ImporterBusiness.csproj" />
     <ProjectReference Include="..\ImporterData\ImporterData.csproj" />
     <ProjectReference Include="..\ImporterDomain\ImporterDomain.csproj" />
   </ItemGroup>

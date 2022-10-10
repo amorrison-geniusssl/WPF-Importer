@@ -1,13 +1,16 @@
-﻿using ImporterDomain.Models;
+﻿using ImporterBusiness;
+using ImporterDomain.Models;
 using ImporterUI.Commands;
 using ImporterUI.Data;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ImporterUI.ViewModels
@@ -28,12 +31,25 @@ namespace ImporterUI.ViewModels
 
         public override async Task LoadAsync()
         {
-            if (Debtors.Any())
-            {
-                return;
-            }
+            Debtors.Clear();
 
             var debtors = await _debtorRepository.GetAllAsync();
+            if (debtors != null)
+            {
+                foreach (var debtor in debtors)
+                {
+                    Debtors.Add(debtor);
+                }
+            }
+        }
+
+        public override async Task LoadFileAsync(string filePath)
+        {
+            ProcessData file = new ProcessData();
+            var debtors = await file.ReadFileAsync(filePath);
+
+            Debtors.Clear();
+
             if (debtors != null)
             {
                 foreach (var debtor in debtors)

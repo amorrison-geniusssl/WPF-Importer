@@ -6,19 +6,24 @@
              xmlns:local="clr-namespace:ImporterUI.Views" xmlns:viewmodels="clr-namespace:ImporterUI.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DebtorsViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
-
-        <DataGrid 
-                  CanUserAddRows="False"
+        <DataGrid CanUserAddRows="False"
                   ItemsSource="{Binding Debtors}"
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False"
+                  ColumnWidth="*" 
+                  SelectionUnit="FullRow"
+                  HeadersVisibility="Column">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="DEBT__TYPE" Binding="{Binding DebtType}"/>
                 <DataGridTextColumn Header="ACC__NUM" Binding="{Binding AccountNumber}"/>
                 <DataGridTextColumn Header="ACC__NAME" Binding="{Binding AccountName}"/>
                 <DataGridTextColumn Header="DOB" Binding="{Binding BirthDate, StringFormat=dd/MM/yyyy}"/>
-
-
                 <DataGridTextColumn Header="BALANCE" Binding="{Binding Balance}"/>
                 <DataGridTextColumn Header="EMAIL" Binding="{Binding Email}"/>
                 <DataGridTextColumn Header="PHONE" Binding="{Binding PhoneNumber}"/>

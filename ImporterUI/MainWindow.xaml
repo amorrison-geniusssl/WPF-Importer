@@ -7,7 +7,7 @@
         xmlns:view="clr-namespace:ImporterUI.Views"
         xmlns:viewModel="clr-namespace:ImporterUI.ViewModels" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="950">
+        Title="MainWindow" Height="650" Width="1100">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModel:DebtorsViewModel}">
@@ -48,6 +48,7 @@
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
 
+        <!-- Header -->
         <Menu FontSize="20"
               Grid.Row="0"
               Grid.Column="0"
@@ -63,6 +64,7 @@
             </MenuItem>
         </Menu>
 
+        <!-- Row 1 -->
         <Grid Grid.Row="1"
               Grid.Column="1"
               Grid.ColumnSpan="5"
@@ -88,7 +90,7 @@
                     Width="60"
                     Margin="60 0 0 0"
                     Content="Load"
-                    Command="{Binding LoadFile}"/>
+                    Command="{Binding LoadSelectedFile}"/>
 
             <Button Grid.Column="3" 
                     Width="60"
@@ -103,7 +105,8 @@
                     Command="{Binding InsertData}"/>
         </Grid>
 
-        
+
+        <!-- Row 2 -->
         <ContentControl 
             Grid.Row="2" 
             Grid.Column="1"
