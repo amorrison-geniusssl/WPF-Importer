@@ -79,7 +79,8 @@
             </Grid.ColumnDefinitions>
 
             <TextBox Padding="3"
-                     Text="{Binding FilePath}"/>
+                     Text="{Binding FilePath}"
+                     IsReadOnly="True"/>
             
             <Button Grid.Column="1" 
                     Width="60"

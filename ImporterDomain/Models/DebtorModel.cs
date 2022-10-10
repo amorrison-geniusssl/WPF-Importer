@@ -11,7 +11,7 @@ namespace ImporterDomain.Models
     {
         public DebtorModel() { }
 
-        public DebtorModel(string? debtType, int accountNumber, string? accountName, DateTime? birthDate, double? balance, string? email, long? phoneNumber, string? firstAddress, string? secondAddress, string? thirdAddress, string? postCode)
+        public DebtorModel(string? debtType, int accountNumber, string? accountName, string? birthDate, double? balance, string? email, long? phoneNumber, string? firstAddress, string? secondAddress, string? thirdAddress, string? postCode)
         {
             DebtType = debtType;
             AccountNumber = accountNumber;
@@ -33,7 +33,7 @@ namespace ImporterDomain.Models
 
         public string? AccountName { get; set; }
 
-        public DateTime? BirthDate { get; set; }
+        public string? BirthDate { get; set; }
 
         public double? Balance { get; set; }
 

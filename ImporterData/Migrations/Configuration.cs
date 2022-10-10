@@ -20,7 +20,7 @@ namespace ImporterData.Migrations
                   DebtType = "Residential",
                   AccountNumber = 1111111,
                   AccountName = "John Huber",
-                  BirthDate = Convert.ToDateTime("13/11/81"),
+                  BirthDate = "13/11/81",
                   Balance = 111.11,
                   Email = "huber@gmail.com",
                   PhoneNumber = 1231211,
@@ -37,7 +37,7 @@ namespace ImporterData.Migrations
                   DebtType = "Business",
                   AccountNumber = 2222222,
                   AccountName = "Alan Morrison",
-                  BirthDate = Convert.ToDateTime("11/11/11"),
+                  BirthDate = "11/11/11",
                   Balance = 444.44,
                   Email = "example@gmail.com",
                   PhoneNumber = 12345679,
@@ -54,7 +54,7 @@ namespace ImporterData.Migrations
                   DebtType = "Business",
                   AccountNumber = 3333333,
                   AccountName = "Jon Snow",
-                  BirthDate = Convert.ToDateTime("12/02/01"),
+                  BirthDate = "12/02/01",
                   Balance = 32,
                   Email = "amorrison@gmail.com",
                   PhoneNumber = 123145124,
@@ -64,32 +64,5 @@ namespace ImporterData.Migrations
                   PostCode = "FK1 2AD",
               });
         }
-
-
-
-            public string? DebtType { get; set; }
-
-        [Key]
-        public int AccountNumber { get; set; }
-
-        public string? AccountName { get; set; }
-
-        public DateTime? BirthDate { get; set; }
-
-        public double? Balance { get; set; }
-
-        public string? Email { get; set; }
-
-        public long? PhoneNumber { get; set; }
-
-        public string? FirstAddress { get; set; }
-
-        public string? SecondAddress { get; set; }
-
-        public string? ThirdAddress { get; set; }
-
-        public string? PostCode { get; set; }
-
-        public ICollection<PaymentModel> Payments { get; set; }
     }
 }

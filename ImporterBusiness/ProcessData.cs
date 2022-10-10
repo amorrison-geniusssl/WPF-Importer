@@ -10,7 +10,7 @@ namespace ImporterBusiness
 {
     public class ProcessData
     {
-        public async Task<List<DebtorModel>> ReadFileAsync(string filePath)
+        public async Task<List<DebtorModel>> ReadDebtorFileAsync(string filePath)
         {
             List<DebtorModel> debtorList = new List<DebtorModel>();
             StreamReader reader = new StreamReader(filePath);
@@ -31,7 +31,7 @@ namespace ImporterBusiness
                                     values[0],
                                     Convert.ToInt32(values[1]),
                                     values[2],
-                                    Convert.ToDateTime(values[3]),
+                                    values[3],
                                     Convert.ToDouble(values[4]),
                                     values[5],
                                     Convert.ToInt64(values[6]),

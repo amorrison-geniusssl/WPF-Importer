@@ -79,7 +79,7 @@ namespace ImporterUI.ViewModels
         private async void DisplayFile(object? obj)
         {
             
-            if (SelectedViewModel != null)
+            if (SelectedViewModel != null && FilePath != null)
             {
                 await SelectedViewModel.LoadFileAsync(FilePath);
             }

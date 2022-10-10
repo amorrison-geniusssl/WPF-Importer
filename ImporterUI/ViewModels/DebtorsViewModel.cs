@@ -12,9 +12,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Threading;
+using System.Xml.Linq;
 
 namespace ImporterUI.ViewModels
 {
+
     public class DebtorsViewModel : ViewModelBase
     {
         private DebtorModel _debtor;
@@ -46,7 +50,18 @@ namespace ImporterUI.ViewModels
         public override async Task LoadFileAsync(string filePath)
         {
             ProcessData file = new ProcessData();
-            var debtors = await file.ReadFileAsync(filePath);
+            List<DebtorModel> debtors = new List<DebtorModel>();
+
+            try
+            {
+                 debtors = await file.ReadDebtorFileAsync(filePath);
+            }
+            catch(Exception)
+            {
+                var dg = new Action(() => { MessageBox.Show("Invalid Data:- Please enter a csv file with the correct Debtor fields"); });
+                Dispatcher.CurrentDispatcher.BeginInvoke(dg);
+                return;
+            }
 
             Debtors.Clear();
 
