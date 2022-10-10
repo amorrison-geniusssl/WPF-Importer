@@ -32,7 +32,7 @@ namespace ImporterDomain.Models
 
         public string? PostCode { get; set; }
 
-        public ICollection<PaymentModel> Payments { get; set; }
+        public ICollection<PaymentModel>? PaymentList { get; set; }
 
     }
 

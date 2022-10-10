@@ -1,4 +1,6 @@
 ﻿using ImporterUI.Commands;
+using Microsoft.Win32;
+using System;
 using System.Threading.Tasks;
 
 namespace ImporterUI.ViewModels
@@ -6,6 +8,7 @@ namespace ImporterUI.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private ViewModelBase? viewModelBase;
+        private string? _filePath;
 
 
         public MainViewModel(DebtorsViewModel debtorsViewModel, PaymentsViewModel paymentsViewModel)
@@ -16,9 +19,10 @@ namespace ImporterUI.ViewModels
             SelectedViewModel = DebtorsViewModel;
 
             SelectViewModelCommand = new DelegateCommand(SelectViewModel);
+            SelectFilePath = new DelegateCommand(SelectPath);
         }
 
-
+        
 
         public ViewModelBase? SelectedViewModel
         {
@@ -29,9 +33,22 @@ namespace ImporterUI.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        public string? FilePath
+        {
+            get { return _filePath; }
+            set
+            {
+                _filePath = value;
+                RaisePropertyChanged();
+
+            }
+        }
+
         public DebtorsViewModel DebtorsViewModel { get; }
         public PaymentsViewModel PaymentsViewModel { get; }
         public DelegateCommand SelectViewModelCommand { get; }
+        public DelegateCommand SelectFilePath { get; }
 
         public override async Task LoadAsync()
         {
@@ -45,6 +62,16 @@ namespace ImporterUI.ViewModels
         {
             SelectedViewModel = parameter as ViewModelBase;
             await LoadAsync();
+        }
+
+        private void SelectPath(object? obj)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.DefaultExt = ".csv";
+            openFileDialog.Filter = "CSV files (*.csv)|*.csv";
+
+            FilePath = openFileDialog.FileName;
         }
     }
 }

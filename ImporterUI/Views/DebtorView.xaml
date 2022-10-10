@@ -8,7 +8,25 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
 
-        <DataGrid Grid.Row="1" Margin="10 0 10 10" ItemsSource="{Binding Debtors}"/>
+        <DataGrid 
+                  CanUserAddRows="False"
+                  ItemsSource="{Binding Debtors}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="DEBT__TYPE" Binding="{Binding DebtType}"/>
+                <DataGridTextColumn Header="ACC__NUM" Binding="{Binding AccountNumber}"/>
+                <DataGridTextColumn Header="ACC__NAME" Binding="{Binding AccountName}"/>
+                <DataGridTextColumn Header="DOB" Binding="{Binding BirthDate, StringFormat=dd/MM/yyyy}"/>
+
+
+                <DataGridTextColumn Header="BALANCE" Binding="{Binding Balance}"/>
+                <DataGridTextColumn Header="EMAIL" Binding="{Binding Email}"/>
+                <DataGridTextColumn Header="PHONE" Binding="{Binding PhoneNumber}"/>
+                <DataGridTextColumn Header="ADD1" Binding="{Binding FirstAddress}"/>
+                <DataGridTextColumn Header="ADD2" Binding="{Binding SecondAddress}"/>
+                <DataGridTextColumn Header="ADD3" Binding="{Binding ThirdAddress}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </UserControl>

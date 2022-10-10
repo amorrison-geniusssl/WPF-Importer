@@ -61,7 +61,8 @@ namespace ImporterUI.ViewModels
             {
                 return SelectedDebtor != null;
             }
-        }           
+        }
+
         /*
                 protected override async void OnSaveExecute()
                 {

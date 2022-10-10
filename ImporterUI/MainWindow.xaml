@@ -7,7 +7,7 @@
         xmlns:view="clr-namespace:ImporterUI.Views"
         xmlns:viewModel="clr-namespace:ImporterUI.ViewModels" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="650" Width="950">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModel:DebtorsViewModel}">
@@ -16,20 +16,43 @@
         <DataTemplate DataType="{x:Type viewModel:PaymentsViewModel}">
             <view:PaymentView/>
         </DataTemplate>
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
 
         <Menu FontSize="20"
-              Grid.ColumnSpan="6">
-            <MenuItem Header="Insert New">
+              Grid.Row="0"
+              Grid.Column="0"
+              Grid.ColumnSpan="7">
+            <MenuItem Header="View">
                 <MenuItem Header="_Debtors"
                           Command="{Binding SelectViewModelCommand}"
                           CommandParameter="{Binding DebtorsViewModel}"/>
@@ -39,6 +62,53 @@
                           CommandParameter="{Binding PaymentsViewModel}"/>
             </MenuItem>
         </Menu>
-        <ContentControl Grid.Row="3" Grid.RowSpan="5" Content="{Binding SelectedViewModel}"/>
+
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+              Grid.ColumnSpan="5"
+              Height="30"
+              Margin="0 10 0 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Padding="3"
+                     Text="{Binding FilePath}"/>
+            
+            <Button Grid.Column="1" 
+                    Width="60"
+                    Content="..." 
+                    Command="{Binding SelectFilePath}"/>
+
+            <Button Grid.Column="2" 
+                    Width="60"
+                    Margin="60 0 0 0"
+                    Content="Load"
+                    Command="{Binding LoadFile}"/>
+
+            <Button Grid.Column="3" 
+                    Width="60"
+                    Margin="10 0 0 0"
+                    Content="Validate"
+                    Command="{Binding ValidateFile}"/>
+
+            <Button Grid.Column="4" 
+                    Width="60"
+                    Margin="10 0 0 0"
+                    Content="Insert"
+                    Command="{Binding InsertData}"/>
+        </Grid>
+
+        
+        <ContentControl 
+            Grid.Row="2" 
+            Grid.Column="1"
+            Grid.RowSpan="4"
+            Grid.ColumnSpan="5" 
+            Content="{Binding SelectedViewModel}"/>
     </Grid>
 </Window>
