@@ -11,15 +11,34 @@ namespace ImporterUI.ViewModels
     {
         private DebtorModel _model;
 
+        public DebtorItemViewModel()
+        {
+        }
+
         public DebtorItemViewModel(DebtorModel model)
         {
             _model = model;
         }
 
-        public int AccountNumber 
-        { 
-            get { return _model.AccountNumber; } 
+
+        public int AccountNumber
+        {
+            get { return _model.AccountNumber; }
+            set
+            {
+                _model.AccountNumber = value;
+                RaisePropertyChanged();
+                if ((_model.AccountNumber != 0))
+                {
+                    AddError("AccountNumber is required");
+                }
+                else
+                {
+                    ClearErrors();
+                }
+            }
         }
+
 
         public string? AccountName
         {

@@ -1,11 +1,14 @@
 ﻿using ImporterUI.Commands;
 using Microsoft.Win32;
 using System;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Shapes;
 
 namespace ImporterUI.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ValidationViewModelBase
     {
         private ViewModelBase? viewModelBase;
         private string? _filePath;
@@ -21,6 +24,8 @@ namespace ImporterUI.ViewModels
             SelectViewModelCommand = new DelegateCommand(SelectViewModel);
             SelectFilePath = new DelegateCommand(SelectPath);
             LoadSelectedFile = new DelegateCommand(DisplayFile);
+
+            FilePath = "";
         }
 
 
@@ -42,6 +47,22 @@ namespace ImporterUI.ViewModels
                 _filePath = value;
                 RaisePropertyChanged();
 
+                string rgx = @"^(?:[\w]\:|\\)(\\[a-z_\-\s0-9\.]+)+\.(txt)$";
+
+                if (string.IsNullOrEmpty(FilePath))
+                {
+                    AddError("File path is required to load data");
+                }
+                else if (!File.Exists(FilePath))
+                {
+                    AddError("File path is not valid and does not point to a .csv file");
+                }
+                else
+                {
+                    ClearErrors();
+                }
+
+                
             }
         }
 
