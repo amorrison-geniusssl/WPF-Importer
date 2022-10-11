@@ -21,7 +21,6 @@ namespace ImporterUI.ViewModels
 
     public class DebtorsViewModel : ViewModelBase
     {
-        private DebtorModel _debtor;
         private IDebtorRespository _debtorRepository;
         private DebtorItemViewModel? _selectedDebtor;
 
@@ -30,7 +29,7 @@ namespace ImporterUI.ViewModels
             _debtorRepository = debtorRepository;
         }
 
-        public ObservableCollection<DebtorModel> Debtors { get; } = new();
+        public ObservableCollection<DebtorItemViewModel> Debtors { get; } = new();
 
 
         public override async Task LoadAsync()
@@ -42,7 +41,7 @@ namespace ImporterUI.ViewModels
             {
                 foreach (var debtor in debtors)
                 {
-                    Debtors.Add(debtor);
+                    Debtors.Add(new DebtorItemViewModel(debtor));
                 }
             }
         }
@@ -69,7 +68,7 @@ namespace ImporterUI.ViewModels
             {
                 foreach (var debtor in debtors)
                 {
-                    Debtors.Add(debtor);
+                    Debtors.Add(new DebtorItemViewModel(debtor));
                 }
             }
         }
