@@ -27,7 +27,7 @@ namespace ImporterUI.ViewModels
             return Task.CompletedTask;
         }
 
-        public virtual Task InsertDebtorData(string filePath)
+        public virtual Task InsertData()
         {
             return Task.CompletedTask;
         }

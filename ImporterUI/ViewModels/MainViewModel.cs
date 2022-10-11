@@ -112,11 +112,13 @@ namespace ImporterUI.ViewModels
 
         private async void InsertFile(object? obj)
         {
-            if(SelectedViewModel == DebtorsViewModel)
+            if (SelectedViewModel == DebtorsViewModel)
             {
-                await SelectedViewModel.InsertDebtorData(FilePath);
-
+                await DebtorsViewModel.InsertData();
+                FilePath = "";
+                SelectedViewModel.LoadAsync();
             }
+
         }
     }
 }

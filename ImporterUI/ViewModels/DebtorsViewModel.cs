@@ -73,7 +73,7 @@ namespace ImporterUI.ViewModels
             }
         }
 
-        public override async Task InsertDebtorData(string? filePath)
+        public override async Task InsertData()
         {
             foreach (var item in Debtors)
             {
