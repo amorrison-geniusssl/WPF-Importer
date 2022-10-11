@@ -44,7 +44,7 @@ namespace ImporterUI.ViewModels
 
             if (!_errorsByPropertyName[propertyName].Contains(error))
             {
-                _errorsByPropertyName[propertyName].Add(error);
+               _errorsByPropertyName[propertyName].Add(error);
                 OnErrorsChanged(new DataErrorsChangedEventArgs(propertyName));
                 RaisePropertyChanged(propertyName);
             }
@@ -63,5 +63,7 @@ namespace ImporterUI.ViewModels
                 RaisePropertyChanged(nameof(HasErrors));
             }
         }
+
+        
     }
 }

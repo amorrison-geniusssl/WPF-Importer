@@ -4,13 +4,15 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ImporterUI.ViewModels
 {
     public class MainViewModel : ValidationViewModelBase
     {
-        private ViewModelBase? viewModelBase;
+        private ValidationViewModelBase? viewModelBase;
         private string? _filePath;
 
 
@@ -24,12 +26,14 @@ namespace ImporterUI.ViewModels
             SelectViewModelCommand = new DelegateCommand(SelectViewModel);
             SelectFilePath = new DelegateCommand(SelectPath);
             LoadSelectedFile = new DelegateCommand(DisplayFile);
+            InsertData = new DelegateCommand(InsertFile);
 
             FilePath = "";
         }
 
 
-        public ViewModelBase? SelectedViewModel
+
+        public ValidationViewModelBase? SelectedViewModel
         {
             get { return viewModelBase; }
             set
@@ -71,6 +75,7 @@ namespace ImporterUI.ViewModels
         public DelegateCommand SelectViewModelCommand { get; }
         public DelegateCommand SelectFilePath { get; }
         public DelegateCommand LoadSelectedFile { get; }
+        public DelegateCommand InsertData { get; }
 
         public override async Task LoadAsync()
         {
@@ -82,7 +87,7 @@ namespace ImporterUI.ViewModels
 
         private async void SelectViewModel(object? parameter)
         {
-            SelectedViewModel = parameter as ViewModelBase;
+            SelectedViewModel = parameter as ValidationViewModelBase;
             await LoadAsync();
         }
 
@@ -99,12 +104,19 @@ namespace ImporterUI.ViewModels
 
         private async void DisplayFile(object? obj)
         {
-            
             if (SelectedViewModel != null && FilePath != null)
             {
                 await SelectedViewModel.LoadFileAsync(FilePath);
             }
         }
 
+        private async void InsertFile(object? obj)
+        {
+            if(SelectedViewModel == DebtorsViewModel)
+            {
+                await SelectedViewModel.InsertDebtorData(FilePath);
+
+            }
+        }
     }
 }

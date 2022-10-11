@@ -19,7 +19,7 @@ using System.Xml.Linq;
 namespace ImporterUI.ViewModels
 {
 
-    public class DebtorsViewModel : ViewModelBase
+    public class DebtorsViewModel : ValidationViewModelBase
     {
         private IDebtorRespository _debtorRepository;
         private DebtorItemViewModel? _selectedDebtor;
@@ -73,6 +73,31 @@ namespace ImporterUI.ViewModels
             }
         }
 
+        public override async Task InsertDebtorData(string? filePath)
+        {
+            foreach (var item in Debtors)
+            {
+                if(!item.HasErrors)
+                {
+                    _debtorRepository.Add(new DebtorModel
+                        (
+                            item.DebtType,
+                            item.AccountNumber,
+                            item.AccountName,
+                            item.BirthDate,
+                            item.Balance,
+                            item.Email,
+                            item.PhoneNumber,
+                            item.FirstAddress,
+                            item.SecondAddress, 
+                            item.ThirdAddress,
+                            item.PostCode
+                        ));
+                }
+            }
+            _debtorRepository.SaveAsync();
+        }
+
 
         public DebtorItemViewModel? SelectedDebtor
         {
@@ -92,6 +117,9 @@ namespace ImporterUI.ViewModels
                 return SelectedDebtor != null;
             }
         }
+
+        
+
 
         /*
                 protected override async void OnSaveExecute()

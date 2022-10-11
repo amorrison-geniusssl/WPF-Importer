@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,9 +45,9 @@ namespace ImporterUI.ViewModels
             {
                 _model.AccountName = value;
                 RaisePropertyChanged();
-                if (string.IsNullOrEmpty(_model.AccountName))
+                if (string.IsNullOrEmpty(_model.AccountName) || _model.AccountName.Length <= 10) 
                 {
-                    AddError("AccountName is required");
+                    AddError("AccountName is invalid");
                 }
                 else
                 {
@@ -62,6 +63,16 @@ namespace ImporterUI.ViewModels
             {
                 _model.BirthDate = value;
                 RaisePropertyChanged();
+
+                DateTime dt;
+                if (!DateTime.TryParseExact(_model.BirthDate, "dd/MM/yyyy", null, DateTimeStyles.None, out dt))
+                {
+                   AddError("DOB is invalid");
+                }
+                else
+                {
+                    ClearErrors();
+                }  
             }
         }
 

@@ -26,6 +26,7 @@ namespace ImporterDomain.Models
             PostCode = postCode;
         }
 
+
         [StringLength(50)]
         public string? DebtType { get; set; }
 

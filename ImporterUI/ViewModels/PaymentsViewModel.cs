@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ImporterUI.ViewModels
 {
-    public class PaymentsViewModel :ViewModelBase
+    public class PaymentsViewModel : ValidationViewModelBase
     {
-
+        
         
     }
 }

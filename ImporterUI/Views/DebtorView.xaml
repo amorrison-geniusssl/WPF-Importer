@@ -7,7 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        
     </UserControl.Resources>
     
     <Grid>
@@ -17,17 +16,32 @@
                   ColumnWidth="*" 
                   SelectionUnit="FullRow"
                   HeadersVisibility="Column">
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="DEBT__TYPE" Binding="{Binding DebtType, ValidatesOnExceptions=True}" />
-                <DataGridTextColumn Header="ACC__NUM" Binding="{Binding AccountNumber, ValidatesOnExceptions=True}"/>
-                <DataGridTextColumn Header="ACC__NAME" Binding="{Binding AccountName, ValidatesOnExceptions=True}"/>
-                <DataGridTextColumn Header="DOB" Binding="{Binding BirthDate, ValidatesOnExceptions=True, StringFormat=dd/MM/yyyy}"/>
-                <DataGridTextColumn Header="BALANCE" Binding="{Binding Balance, ValidatesOnExceptions=True}"/>
-                <DataGridTextColumn Header="EMAIL" Binding="{Binding Email, ValidatesOnExceptions=True}"/>
-                <DataGridTextColumn Header="PHONE" Binding="{Binding PhoneNumber, ValidatesOnExceptions=True}"/>
-                <DataGridTextColumn Header="ADD1" Binding="{Binding FirstAddress, ValidatesOnExceptions=True}"/>
-                <DataGridTextColumn Header="ADD2" Binding="{Binding SecondAddress, ValidatesOnExceptions=True}"/>
-                <DataGridTextColumn Header="ADD3" Binding="{Binding ThirdAddress, ValidatesOnExceptions=True}"/>
+                <DataGridTextColumn Header="DEBT__TYPE" 
+                                    Binding="{Binding DebtType}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="ACC__NUM" 
+                                    Binding="{Binding AccountNumber}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="ACC__NAME" 
+                                    Binding="{Binding AccountName}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="DOB" 
+                                    Binding="{Binding BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=dd/MM/yyyy}"
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="BALANCE" Binding="{Binding Balance}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="EMAIL" Binding="{Binding Email}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="PHONE" Binding="{Binding PhoneNumber}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="ADD1" Binding="{Binding FirstAddress}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="ADD2" Binding="{Binding SecondAddress}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="ADD3" Binding="{Binding ThirdAddress}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
             </DataGrid.Columns>
         </DataGrid>
 
