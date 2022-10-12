@@ -13,9 +13,31 @@ namespace ImporterUI.ViewModels
     {
         private DebtorModel _model;
 
+        public DebtorItemViewModel()
+        {
+
+        }
+
         public DebtorItemViewModel(DebtorModel model)
         {
             _model = model;
+        }
+
+        public DebtorItemViewModel(string? debtType, int accountNumber, string? accountName, string? birthDate, double? balance, string? email, long? phoneNumber, string? firstAddress, string? secondAddress, string? thirdAddress, string? postCode)
+        {
+            _model = new DebtorModel();
+
+            _model.DebtType = debtType;
+            AccountNumber = accountNumber;
+            AccountName = accountName;
+            BirthDate = birthDate;
+            Balance = balance;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            FirstAddress = firstAddress;
+            SecondAddress = secondAddress;
+            ThirdAddress = thirdAddress;
+            PostCode = postCode;
         }
 
         public string? DebtType

@@ -68,7 +68,25 @@ namespace ImporterUI.ViewModels
             {
                 foreach (var debtor in debtors)
                 {
-                    Debtors.Add(new DebtorItemViewModel(debtor));
+
+                    var newDebtor = new DebtorItemViewModel(debtor.DebtType,
+                    debtor.AccountNumber,
+                    debtor.AccountName,
+                    debtor.BirthDate,
+                    debtor.Balance,
+                    debtor.Email,
+                    debtor.PhoneNumber,
+                    debtor.FirstAddress,
+                    debtor.SecondAddress,
+                    debtor.ThirdAddress,
+                    debtor.PostCode);
+
+
+                    
+
+                    Debtors.Add(newDebtor);
+
+
                 }
             }
         }
@@ -95,7 +113,7 @@ namespace ImporterUI.ViewModels
                         ));
                 }
             }
-            await _debtorRepository.SaveAsync();
+            _debtorRepository.SaveAsync();
         }
 
 
@@ -116,55 +134,6 @@ namespace ImporterUI.ViewModels
             {
                 return SelectedDebtor != null;
             }
-        }
-
-        
-
-
-        /*
-                protected override async void OnSaveExecute()
-                {
-                    await SaveWithOptimisticConcurrencyAsync(_friendRepository.SaveAsync,
-                      () =>
-                      {
-                          HasChanges = _friendRepository.HasChanges();
-                          Id = Friend.Id;
-                          RaiseDetailSavedEvent(Friend.Id, $"{Friend.FirstName} {Friend.LastName}");
-                      });
-                }
-
-                protected override bool OnSaveCanExecute()
-                {
-                    return Friend != null
-                      && !Friend.HasErrors
-                      && PhoneNumbers.All(pn => !pn.HasErrors)
-                      && HasChanges;
-                }
-
-                protected override async void OnDeleteExecute()
-                {
-                    if (await _friendRepository.HasMeetingsAsync(Friend.Id))
-                    {
-                        await MessageDialogService.ShowInfoDialogAsync($"{Friend.FirstName} {Friend.LastName} can't be deleted, as this friend is part of at least one meeting");
-                        return;
-                    }
-
-                    var result = await MessageDialogService.ShowOkCancelDialogAsync($"Do you really want to delete the friend {Friend.FirstName} {Friend.LastName}?",
-                      "Question");
-                    if (result == MessageDialogResult.OK)
-                    {
-                        _friendRepository.Remove(Friend.Model);
-                        await _friendRepository.SaveAsync();
-                        RaiseDetailDeletedEvent(Friend.Id);
-                    }
-                }
-
-                private Friend CreateNewFriend()
-                {
-                    var friend = new Friend();
-                    _friendRepository.Add(friend);
-                    return friend;
-                }
-        */
+        } 
     }
 }
