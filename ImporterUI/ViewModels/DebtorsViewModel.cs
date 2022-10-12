@@ -95,7 +95,7 @@ namespace ImporterUI.ViewModels
                         ));
                 }
             }
-            _debtorRepository.SaveAsync();
+            await _debtorRepository.SaveAsync();
         }
 
 

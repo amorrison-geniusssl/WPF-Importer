@@ -51,9 +51,22 @@ namespace ImporterUI.ViewModels
                 _filePath = value;
                 RaisePropertyChanged();
 
+
                 if (!File.Exists(FilePath) && !string.IsNullOrEmpty(FilePath))
                 {
-                    AddError("File path is not valid and does not point to a .csv file");
+                    AddError("File path is not valid and does not point to a valid file path file");
+                    return;
+                }
+                else
+                {
+                    ClearErrors();
+                }
+
+                string? lastFour = System.IO.Path.GetExtension(FilePath);
+
+                if ((lastFour != ".csv") && !string.IsNullOrEmpty(FilePath))
+                {
+                    AddError("File path is valid but does not point to a .csv file");
                     return;
                 }
                 else
@@ -70,11 +83,6 @@ namespace ImporterUI.ViewModels
                 {
                     ClearErrors();
                 }
-
-
-                
-
-
             }
         }
 
@@ -124,7 +132,7 @@ namespace ImporterUI.ViewModels
             {
                 await DebtorsViewModel.InsertData();
                 FilePath = "";
-                SelectedViewModel.LoadAsync();
+                await SelectedViewModel.LoadAsync();
             }
 
         }
