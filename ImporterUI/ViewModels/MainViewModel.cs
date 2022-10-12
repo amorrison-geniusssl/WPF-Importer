@@ -51,22 +51,30 @@ namespace ImporterUI.ViewModels
                 _filePath = value;
                 RaisePropertyChanged();
 
-                string rgx = @"^(?:[\w]\:|\\)(\\[a-z_\-\s0-9\.]+)+\.(txt)$";
-
-                if (string.IsNullOrEmpty(FilePath))
-                {
-                    AddError("File path is required to load data");
-                }
-                else if (!File.Exists(FilePath))
+                if (!File.Exists(FilePath) && !string.IsNullOrEmpty(FilePath))
                 {
                     AddError("File path is not valid and does not point to a .csv file");
+                    return;
                 }
                 else
                 {
                     ClearErrors();
                 }
 
+                if (string.IsNullOrEmpty(FilePath))
+                {
+                    AddError("File path is required to load data");
+                    return;
+                }
+                else
+                {
+                    ClearErrors();
+                }
+
+
                 
+
+
             }
         }
 
