@@ -10,12 +10,13 @@
         Title="MainWindow" Height="650" Width="1100">
 
     <Window.Resources>
-        <DataTemplate DataType="{x:Type viewModel:DebtorsViewModel}">
+            <DataTemplate DataType="{x:Type viewModel:DebtorsViewModel}">
             <view:DebtorView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:PaymentsViewModel}">
             <view:PaymentView/>
         </DataTemplate>
+
 
     </Window.Resources>
     <Grid>
@@ -70,7 +71,7 @@
 
             <TextBox Padding="3"
                      Text="{Binding FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     />
+                     Style="{StaticResource TextStyle}"/>
             
             <Button Grid.Column="1" 
                     Width="60"

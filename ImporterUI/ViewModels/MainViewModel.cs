@@ -13,20 +13,20 @@ namespace ImporterUI.ViewModels
     public class MainViewModel : ValidationViewModelBase
     {
         private ValidationViewModelBase? viewModelBase;
+        private ItemViewModelBase? itemViewModel;
         private string? _filePath;
-
 
         public MainViewModel(DebtorsViewModel debtorsViewModel, PaymentsViewModel paymentsViewModel)
         {
             DebtorsViewModel = debtorsViewModel;
             PaymentsViewModel = paymentsViewModel;
 
-            SelectedViewModel = DebtorsViewModel;
-
             SelectViewModelCommand = new DelegateCommand(SelectViewModel);
             SelectFilePath = new DelegateCommand(SelectPath);
-            LoadSelectedFile = new DelegateCommand(DisplayFile);
-            InsertData = new DelegateCommand(InsertFile);
+            LoadSelectedFile = new DelegateCommand(DisplayFile, CanDisplay);
+            InsertData = new DelegateCommand(InsertFile, CanInsert);
+
+            SelectedViewModel = DebtorsViewModel;
 
             FilePath = "";
         }
@@ -50,6 +50,7 @@ namespace ImporterUI.ViewModels
             {
                 _filePath = value;
                 RaisePropertyChanged();
+                LoadSelectedFile.RaiseCanExecuteChanged();
 
 
                 if (!File.Exists(FilePath) && !string.IsNullOrEmpty(FilePath))
@@ -95,10 +96,8 @@ namespace ImporterUI.ViewModels
 
         public override async Task LoadAsync()
         {
-            if (SelectedViewModel != null)
-            {
-                await SelectedViewModel.LoadAsync();
-            }
+            await SelectedViewModel.LoadAsync();
+
         }
 
         private async void SelectViewModel(object? parameter)
@@ -120,10 +119,13 @@ namespace ImporterUI.ViewModels
 
         private async void DisplayFile(object? obj)
         {
-            if (SelectedViewModel != null && FilePath != null)
-            {
-                await SelectedViewModel.LoadFileAsync(FilePath);
-            }
+            await SelectedViewModel.LoadFileAsync(FilePath);
+            InsertData.RaiseCanExecuteChanged();
+        }
+
+        private bool CanDisplay(object? obj)
+        {
+            return FilePath != "";
         }
 
         private async void InsertFile(object? obj)
@@ -133,8 +135,13 @@ namespace ImporterUI.ViewModels
                 await DebtorsViewModel.InsertData();
                 FilePath = "";
                 await SelectedViewModel.LoadAsync();
+                InsertData.RaiseCanExecuteChanged();
             }
+        }
 
+        private bool CanInsert(object? obj)
+        {
+            return SelectedViewModel != null && FilePath != "" && SelectedViewModel.CanInsert == true; 
         }
     }
 }

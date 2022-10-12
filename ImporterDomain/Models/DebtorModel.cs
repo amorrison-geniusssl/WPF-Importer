@@ -1,6 +1,7 @@
 ﻿ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,29 +27,47 @@ namespace ImporterDomain.Models
             PostCode = postCode;
         }
 
-
-        [StringLength(50)]
+        [Required]
+        [StringLength(30)]
         public string? DebtType { get; set; }
 
         [Key]
+        [Required]
+        [Index(IsUnique = true)]
         public int AccountNumber { get; set; }
 
+        [Required]
+        [StringLength(30)]
         public string? AccountName { get; set; }
 
+        [Required]
+        [StringLength(10)]
         public string? BirthDate { get; set; }
 
+        [Required]
         public double? Balance { get; set; }
 
+        [Required]
+        [StringLength(30)]
+        [EmailAddress]
         public string? Email { get; set; }
 
+        [Required]
         public long? PhoneNumber { get; set; }
 
+        [Required]
+        [StringLength(30)]
         public string? FirstAddress { get; set; }
 
+        [StringLength(30)]
         public string? SecondAddress { get; set; }
 
+        [Required]
+        [StringLength(30)]
         public string? ThirdAddress { get; set; }
 
+        [Required]
+        [StringLength(10)]
         public string? PostCode { get; set; }
 
         public ICollection<PaymentModel>? PaymentList { get; set; }

@@ -44,6 +44,7 @@ namespace ImporterUI.ViewModels
                     Debtors.Add(new DebtorItemViewModel(debtor));
                 }
             }
+            CanInsert = false;
         }
 
         public override async Task LoadFileAsync(string filePath)
@@ -68,7 +69,6 @@ namespace ImporterUI.ViewModels
             {
                 foreach (var debtor in debtors)
                 {
-
                     var newDebtor = new DebtorItemViewModel(debtor.DebtType,
                     debtor.AccountNumber,
                     debtor.AccountName,
@@ -81,14 +81,11 @@ namespace ImporterUI.ViewModels
                     debtor.ThirdAddress,
                     debtor.PostCode);
 
-
-                    
-
                     Debtors.Add(newDebtor);
-
-
                 }
             }
+
+            CanInsert = true;
         }
 
         public override async Task InsertData()
@@ -113,7 +110,7 @@ namespace ImporterUI.ViewModels
                         ));
                 }
             }
-            _debtorRepository.SaveAsync();
+            await _debtorRepository.SaveAsync();
         }
 
 

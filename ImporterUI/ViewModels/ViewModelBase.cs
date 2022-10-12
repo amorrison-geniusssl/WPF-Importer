@@ -11,6 +11,9 @@ namespace ImporterUI.ViewModels
     public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public bool _canInsert;
+
+        public bool CanInsert { get; set; }
 
         protected virtual void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
         {

@@ -1,4 +1,5 @@
 ﻿using ImporterDomain.Models;
+using ImporterUI.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,13 +10,14 @@ using System.Threading.Tasks;
 
 namespace ImporterUI.ViewModels
 {
-    public class DebtorItemViewModel : ValidationViewModelBase
+    public class DebtorItemViewModel : ItemViewModelBase
     {
         private DebtorModel _model;
+        private IDebtorRespository _debtorRepository;
 
-        public DebtorItemViewModel()
+        public DebtorItemViewModel(IDebtorRespository debtorRepository)
         {
-
+            _debtorRepository = debtorRepository;
         }
 
         public DebtorItemViewModel(DebtorModel model)
@@ -27,7 +29,7 @@ namespace ImporterUI.ViewModels
         {
             _model = new DebtorModel();
 
-            _model.DebtType = debtType;
+            DebtType = debtType;
             AccountNumber = accountNumber;
             AccountName = accountName;
             BirthDate = birthDate;
@@ -47,6 +49,20 @@ namespace ImporterUI.ViewModels
             {
                 _model.DebtType = value;
                 RaisePropertyChanged();
+/*
+                var results = new List<ValidationResult>();
+                var context = new ValidationContext(_model) { MemberName = "DebtType" };
+
+                bool noAnnotationError = Validator.TryValidateProperty(DebtType, context, results);*/
+
+                if (NoValidationErrors(DebtType, "DebtType", _model, null) == false)
+                {
+                    AddError($"DebtType is invalid");
+                }
+                else
+                {
+                    ClearErrors();
+                }
             }
         }
 
@@ -57,6 +73,16 @@ namespace ImporterUI.ViewModels
             {
                 _model.AccountNumber = value;
                 RaisePropertyChanged();
+
+                if (NoValidationErrors(AccountNumber, "AccountNumber", _model, null) == false)
+                {
+                    AddError($"AccountNumber is invalid");
+                }
+                else
+                {
+                    ClearErrors();
+                }
+
             }
         }
 
@@ -67,9 +93,10 @@ namespace ImporterUI.ViewModels
             {
                 _model.AccountName = value;
                 RaisePropertyChanged();
-                if (string.IsNullOrEmpty(_model.AccountName) || _model.AccountName.Length <= 10) 
+
+                if (NoValidationErrors(AccountName, "DebtType", _model, null) == false)
                 {
-                    AddError("AccountName is invalid");
+                    AddError($"AccountName is invalid");
                 }
                 else
                 {
@@ -94,7 +121,16 @@ namespace ImporterUI.ViewModels
                 else
                 {
                     ClearErrors();
-                }  
+                }
+
+                if (NoValidationErrors(BirthDate, "BirthDate", _model, null) == false)
+                {
+                    AddError($"BirthDate  is invalid");
+                }
+                else
+                {
+                    ClearErrors();
+                }
             }
         }
 
@@ -105,6 +141,15 @@ namespace ImporterUI.ViewModels
             {
                 _model.Balance = value;
                 RaisePropertyChanged();
+
+                if (NoValidationErrors(Balance, "Balance", _model, null) == false)
+                {
+                    AddError($"Balance  is invalid");
+                }
+                else
+                {
+                    ClearErrors();
+                }
             }
         }
         public string? Email
@@ -114,6 +159,15 @@ namespace ImporterUI.ViewModels
             {
                 _model.Email = value;
                 RaisePropertyChanged();
+
+                if (NoValidationErrors(Email, "Email", _model, null) == false)
+                {
+                    AddError($"Email is invalid");
+                }
+                else
+                {
+                    ClearErrors();
+                }
             }
         }
 
@@ -124,6 +178,15 @@ namespace ImporterUI.ViewModels
             {
                 _model.PhoneNumber = value;
                 RaisePropertyChanged();
+
+                if (NoValidationErrors(PhoneNumber, "PhoneNumber", _model, null) == false)
+                {
+                    AddError($"PhoneNumber is invalid");
+                }
+                else
+                {
+                    ClearErrors();
+                }
             }
         }
 
@@ -134,6 +197,15 @@ namespace ImporterUI.ViewModels
             {
                 _model.FirstAddress = value;
                 RaisePropertyChanged();
+
+                if (NoValidationErrors(FirstAddress, "FirstAddress", _model, null) == false)
+                {
+                    AddError($"FirstAddress is invalid");
+                }
+                else
+                {
+                    ClearErrors();
+                }
             }
         }
 
@@ -144,6 +216,15 @@ namespace ImporterUI.ViewModels
             {
                 _model.SecondAddress = value;
                 RaisePropertyChanged();
+
+                if (NoValidationErrors(SecondAddress, "SecondAddress", _model, null) == false)
+                {
+                    AddError($"SecondAddress is invalid");
+                }
+                else
+                {
+                    ClearErrors();
+                }
             }
         }
 
@@ -154,6 +235,15 @@ namespace ImporterUI.ViewModels
             {
                 _model.ThirdAddress = value;
                 RaisePropertyChanged();
+
+                if (NoValidationErrors(ThirdAddress, "ThirdAddress", _model, null) == false)
+                {
+                    AddError($"ThirdAddress is invalid");
+                }
+                else
+                {
+                    ClearErrors();
+                }
             }
         }
 
@@ -164,7 +254,18 @@ namespace ImporterUI.ViewModels
             {
                 _model.PostCode = value;
                 RaisePropertyChanged();
+
+                if (NoValidationErrors(ThirdAddress, "ThirdAddress", _model, null) == false)
+                {
+                    AddError($"ThirdAddress is invalid");
+                }
+                else
+                {
+                    ClearErrors();
+                }
             }
         }
+
+        
     }
 }
