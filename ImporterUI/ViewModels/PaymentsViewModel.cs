@@ -36,7 +36,7 @@ namespace ImporterUI.ViewModels
                 foreach (var payment in payments)
                 {
 
-                    Payments.Add(new PaymentItemViewModel(payment));
+                    Payments.Add(new PaymentItemViewModel(_paymentRepository, payment));
                 }
             }
             CanInsert = false;
@@ -67,13 +67,14 @@ namespace ImporterUI.ViewModels
                 {
                     var newPayment = new PaymentItemViewModel
                     (
-                            payment.AdeptRef,
-                            payment.Amount,
-                            payment.EffectiveDate,
-                            payment.Source,
-                            payment.Method,
-                            payment.Comment,
-                            payment.AccountNumber
+                        _paymentRepository,
+                        payment.AdeptRef,
+                        payment.Amount,
+                        payment.EffectiveDate,
+                        payment.Source,
+                        payment.Method,
+                        payment.Comment,
+                        payment.AccountNumber
 
                     );
 

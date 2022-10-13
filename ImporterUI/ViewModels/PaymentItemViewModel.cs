@@ -11,16 +11,18 @@ namespace ImporterUI.ViewModels
 {
     public class PaymentItemViewModel : ItemViewModelBase
     {
-        private PaymentModel _model;
         private IPaymentRespository _paymentRepository;
+        private PaymentModel _model;
 
-        public PaymentItemViewModel(PaymentModel model)
+        public PaymentItemViewModel(IPaymentRespository paymentRepository, PaymentModel model)
         {
+            _paymentRepository = paymentRepository;
             _model = model;
         }
 
-        public PaymentItemViewModel(string adeptRef, double? amount, string effectiveDate, string source, string method, string comment, int accountNumber)
+        public PaymentItemViewModel(IPaymentRespository paymentRepository, string adeptRef, double? amount, string effectiveDate, string source, string method, string comment, int accountNumber)
         {
+            _paymentRepository = paymentRepository;
             _model = new PaymentModel();
 
             AdeptRef = adeptRef;
@@ -148,6 +150,14 @@ namespace ImporterUI.ViewModels
             }
         }
 
+
+        public bool exists { get; set; }
+        public async void getItem()
+        {
+            exists = await _paymentRepository.ForeignKeyExists(AccountNumber);
+
+        }
+
         public int AccountNumber
         {
             get { return _model.AccountNumber; }
@@ -159,13 +169,19 @@ namespace ImporterUI.ViewModels
                 if (NoValidationErrors(AccountNumber, "AccountNumber", null, _model) == false)
                 {
                     AddError($"AccountNumber is invalid");
-                    return;
                 }
                 else
                 {
                     ClearErrors();
                 }
 
+                getItem();
+
+                if (exists)
+                {
+                    AddError($"AccountNumber is invalid");
+
+                }
 
             }
         }

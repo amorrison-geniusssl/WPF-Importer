@@ -11,6 +11,7 @@ namespace ImporterUI.Data
 {
     public interface IDebtorRespository : IGenericRepository<DebtorModel>
     {
+        Task<DebtorModel> GetByIdAsync(int friendId);
     }
 
     public class DebtorRespository : GenericRepository<DebtorModel, ImporterDbContext>, IDebtorRespository
@@ -19,5 +20,13 @@ namespace ImporterUI.Data
         {
 
         }
+
+        public override async Task<DebtorModel> GetByIdAsync(int accountNumber)
+        {
+            return await Context.Debtors
+              .SingleAsync(f => f.AccountNumber == accountNumber);
+        }
+
+
     }
 }

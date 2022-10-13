@@ -54,7 +54,7 @@ namespace ImporterUI.ViewModels
 
             try
             {
-                debtors = await file.ReadDebtorFileAsync(filePath);
+                 debtors = await file.ReadDebtorFileAsync(filePath);
                 CanInsert = true;
             }
             catch (Exception)
