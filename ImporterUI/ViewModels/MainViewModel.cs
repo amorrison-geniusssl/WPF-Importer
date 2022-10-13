@@ -133,10 +133,16 @@ namespace ImporterUI.ViewModels
             if (SelectedViewModel == DebtorsViewModel)
             {
                 await DebtorsViewModel.InsertData();
-                FilePath = "";
-                await SelectedViewModel.LoadAsync();
-                InsertData.RaiseCanExecuteChanged();
+                
             }
+            else if(SelectedViewModel == PaymentsViewModel)
+            {
+                await PaymentsViewModel.InsertData();
+            }
+
+            FilePath = "";
+            await SelectedViewModel.LoadAsync();
+            InsertData.RaiseCanExecuteChanged();
         }
 
         private bool CanInsert(object? obj)

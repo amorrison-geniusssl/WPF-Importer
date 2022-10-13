@@ -46,5 +46,39 @@ namespace ImporterBusiness
             }
             return debtorList;
         }
+
+        public async Task<List<PaymentModel>> ReadPaymentFileAsync(string filePath)
+        {
+            List<PaymentModel> debtorList = new List<PaymentModel>();
+            StreamReader reader = new StreamReader(filePath);
+            bool loop = true;
+
+            while (loop)
+            {
+                using (reader)
+                {
+                    reader.ReadLine();
+
+                    while (!reader.EndOfStream)
+                    {
+                        var values = reader.ReadLine().Split(",");
+
+                        debtorList.Add(new PaymentModel
+                            (
+                                    values[0],
+                                    values[1].ToNullable<double>(),
+                                    values[2],
+                                    values[3],
+                                    values[4],
+                                    values[5],
+                                    Convert.ToInt32(values[6])
+                            ));
+                    }
+                }
+                loop = false;
+            }
+            return debtorList;
+        }
+
     }
 }

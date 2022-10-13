@@ -32,6 +32,7 @@ namespace ImporterUI
 
             services.AddTransient<ImporterDbContext>();
             services.AddTransient<IDebtorRespository, DebtorRespository>();
+            services.AddTransient<IPaymentRespository, PaymentRespository>();
         }
 
         protected override void OnStartup(StartupEventArgs e)

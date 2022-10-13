@@ -7,13 +7,13 @@ namespace ImporterData.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class edit : IMigrationMetadata
+    public sealed partial class updatedate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(edit));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(updatedate));
         
         string IMigrationMetadata.Id
         {
-            get { return "202210121004461_edit"; }
+            get { return "202210130839048_update-date"; }
         }
         
         string IMigrationMetadata.Source

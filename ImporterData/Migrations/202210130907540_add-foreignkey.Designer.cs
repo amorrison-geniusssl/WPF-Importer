@@ -7,13 +7,13 @@ namespace ImporterData.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class updateannotations : IMigrationMetadata
+    public sealed partial class addforeignkey : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(updateannotations));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addforeignkey));
         
         string IMigrationMetadata.Id
         {
-            get { return "202210121334091_update-annotations"; }
+            get { return "202210130907540_add-foreignkey"; }
         }
         
         string IMigrationMetadata.Source

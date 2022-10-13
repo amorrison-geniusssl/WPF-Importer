@@ -54,9 +54,10 @@ namespace ImporterUI.ViewModels
 
             try
             {
-                 debtors = await file.ReadDebtorFileAsync(filePath);
+                debtors = await file.ReadDebtorFileAsync(filePath);
+                CanInsert = true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 var dg = new Action(() => { MessageBox.Show("Invalid Data:= Please enter a csv file with the correct Debtor fields"); });
                 Dispatcher.CurrentDispatcher.BeginInvoke(dg);
@@ -69,23 +70,25 @@ namespace ImporterUI.ViewModels
             {
                 foreach (var debtor in debtors)
                 {
-                    var newDebtor = new DebtorItemViewModel(debtor.DebtType,
-                    debtor.AccountNumber,
-                    debtor.AccountName,
-                    debtor.BirthDate,
-                    debtor.Balance,
-                    debtor.Email,
-                    debtor.PhoneNumber,
-                    debtor.FirstAddress,
-                    debtor.SecondAddress,
-                    debtor.ThirdAddress,
-                    debtor.PostCode);
+                    var newDebtor = new DebtorItemViewModel
+                    (
+                        debtor.DebtType,
+                        debtor.AccountNumber,
+                        debtor.AccountName,
+                        debtor.BirthDate,
+                        debtor.Balance,
+                        debtor.Email,
+                        debtor.PhoneNumber,
+                        debtor.FirstAddress,
+                        debtor.SecondAddress,
+                        debtor.ThirdAddress,
+                        debtor.PostCode
+                    );
 
                     Debtors.Add(newDebtor);
                 }
             }
 
-            CanInsert = true;
         }
 
         public override async Task InsertData()

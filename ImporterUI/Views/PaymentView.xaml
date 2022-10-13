@@ -6,6 +6,35 @@
              xmlns:local="clr-namespace:ImporterUI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Blue">
+    <Grid>
+        <DataGrid CanUserAddRows="False"
+                  ItemsSource="{Binding Payments}"
+                  AutoGenerateColumns="False"
+                  ColumnWidth="*" 
+                  SelectionUnit="FullRow"
+                  HeadersVisibility="Column">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Adept__Ref" 
+                                    Binding="{Binding AdeptRef}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="Amount" 
+                                    Binding="{Binding Amount}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="Effective__Date" 
+                                    Binding="{Binding EffectiveDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=dd/MM/yyyy}"
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="Source" 
+                                    Binding="{Binding Source}"
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="Method" Binding="{Binding Method}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                <DataGridTextColumn Header="ACC__NUM" Binding="{Binding AccountNumber}" 
+                                    ElementStyle="{StaticResource CellErrorStyle}"/>
+                
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

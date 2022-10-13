@@ -49,11 +49,6 @@ namespace ImporterUI.ViewModels
             {
                 _model.DebtType = value;
                 RaisePropertyChanged();
-/*
-                var results = new List<ValidationResult>();
-                var context = new ValidationContext(_model) { MemberName = "DebtType" };
-
-                bool noAnnotationError = Validator.TryValidateProperty(DebtType, context, results);*/
 
                 if (NoValidationErrors(DebtType, "DebtType", _model, null) == false)
                 {
@@ -114,18 +109,12 @@ namespace ImporterUI.ViewModels
                 RaisePropertyChanged();
 
                 DateTime dt;
-                if (!DateTime.TryParseExact(_model.BirthDate, "dd/MM/yyyy", null, DateTimeStyles.None, out dt))
-                {
-                   AddError("DOB is invalid");
-                }
-                else
-                {
-                    ClearErrors();
-                }
 
-                if (NoValidationErrors(BirthDate, "BirthDate", _model, null) == false)
+
+                if (NoValidationErrors(BirthDate, "BirthDate", _model, null) == false || 
+                    !DateTime.TryParseExact(_model.BirthDate, "dd/MM/yyyy", null, DateTimeStyles.None, out dt))
                 {
-                    AddError($"BirthDate  is invalid");
+                    AddError($"BirthDate is invalid");
                 }
                 else
                 {

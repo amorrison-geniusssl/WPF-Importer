@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace ImporterUI.Data
 {
-    public interface IDebtorRespository : IGenericRepository<DebtorModel>
+    public interface IPaymentRespository : IGenericRepository<PaymentModel>
     {
+
     }
 
-    public class DebtorRespository : GenericRepository<DebtorModel, ImporterDbContext>, IDebtorRespository
+    public class PaymentRespository : GenericRepository<PaymentModel, ImporterDbContext>, IPaymentRespository
     {
-        public DebtorRespository(ImporterDbContext context) : base(context)
+        public PaymentRespository(ImporterDbContext context) : base(context)
         {
 
         }

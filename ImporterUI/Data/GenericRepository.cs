@@ -44,7 +44,14 @@ namespace ImporterUI.Data
 
         public async Task SaveAsync()
         {
-            await Context.SaveChangesAsync();
+            try
+            {
+                await Context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }
