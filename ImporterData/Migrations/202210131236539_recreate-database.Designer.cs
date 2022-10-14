@@ -7,13 +7,13 @@ namespace ImporterData.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class changedtablename : IMigrationMetadata
+    public sealed partial class recreatedatabase : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(changedtablename));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(recreatedatabase));
         
         string IMigrationMetadata.Id
         {
-            get { return "202210071251308_changed-tablename"; }
+            get { return "202210131236539_recreate-database"; }
         }
         
         string IMigrationMetadata.Source

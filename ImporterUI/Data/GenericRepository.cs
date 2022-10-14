@@ -23,10 +23,11 @@ namespace ImporterUI.Data
             Context.Set<TEntity>().Add(model);
         }
 
-        public virtual async Task<TEntity> GetByIdAsync(int id)
+        public virtual async Task<TEntity> GetByIdAsync(int accountNumber)
         {
-            return await Context.Set<TEntity>().FindAsync(id);
+            return await Context.Set<TEntity>().FindAsync(accountNumber);
         }
+
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
@@ -45,14 +46,7 @@ namespace ImporterUI.Data
 
         public async Task SaveAsync()
         {
-            try
-            {
-                await Context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-
-            }
+            await Context.SaveChangesAsync();
         }
     }
 }

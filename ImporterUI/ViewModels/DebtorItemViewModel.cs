@@ -15,18 +15,17 @@ namespace ImporterUI.ViewModels
         private DebtorModel _model;
         private IDebtorRespository _debtorRepository;
 
-        public DebtorItemViewModel(IDebtorRespository debtorRepository)
+
+        public DebtorItemViewModel(IDebtorRespository debtorRepository, DebtorModel model)
         {
             _debtorRepository = debtorRepository;
-        }
-
-        public DebtorItemViewModel(DebtorModel model)
-        {
             _model = model;
         }
 
-        public DebtorItemViewModel(string? debtType, int accountNumber, string? accountName, string? birthDate, double? balance, string? email, long? phoneNumber, string? firstAddress, string? secondAddress, string? thirdAddress, string? postCode)
+        public DebtorItemViewModel(IDebtorRespository debtorRepository, string? debtType, int accountNumber, string? accountName, string? birthDate, double? balance, string? email, long? phoneNumber, string? firstAddress, string? secondAddress, string? thirdAddress, string? postCode)
         {
+            _debtorRepository = debtorRepository;
+
             _model = new DebtorModel();
 
             DebtType = debtType;
@@ -69,7 +68,9 @@ namespace ImporterUI.ViewModels
                 _model.AccountNumber = value;
                 RaisePropertyChanged();
 
-                if (NoValidationErrors(AccountNumber, "AccountNumber", _model, null) == false)
+                CheckUserExists();
+
+                if (NoValidationErrors(AccountNumber, "AccountNumber", _model, null) == false || DebtorExists == true)
                 {
                     AddError($"AccountNumber is invalid");
                 }
@@ -255,6 +256,11 @@ namespace ImporterUI.ViewModels
             }
         }
 
-        
+        private bool DebtorExists { get; set; }
+        private async void CheckUserExists()
+        {
+            DebtorExists = await _debtorRepository.ItemExistsAsync(AccountNumber);
+        }
+
     }
 }

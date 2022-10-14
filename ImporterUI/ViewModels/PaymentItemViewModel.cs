@@ -43,7 +43,9 @@ namespace ImporterUI.ViewModels
                 _model.AdeptRef = value;
                 RaisePropertyChanged();
 
-                if (NoValidationErrors(AdeptRef, "AdeptRef", null, _model) == false)
+                CheckPaymentExists();
+
+                if (NoValidationErrors(AdeptRef, "AdeptRef", null, _model) == false || PaymentExists == true)
                 {
                     AddError($"AdeptRef is invalid");
                 }
@@ -132,10 +134,10 @@ namespace ImporterUI.ViewModels
         }
 
         public string Comment
-{
+        {
             get { return _model.Comment; }
             set
-{
+            {
                 _model.Comment = value;
                 RaisePropertyChanged();
 
@@ -150,14 +152,6 @@ namespace ImporterUI.ViewModels
             }
         }
 
-
-        public bool exists { get; set; }
-        public async void getItem()
-        {
-            exists = await _paymentRepository.ForeignKeyExists(AccountNumber);
-
-        }
-
         public int AccountNumber
         {
             get { return _model.AccountNumber; }
@@ -166,7 +160,10 @@ namespace ImporterUI.ViewModels
                 _model.AccountNumber = value;
                 RaisePropertyChanged();
 
-                if (NoValidationErrors(AccountNumber, "AccountNumber", null, _model) == false)
+                // Checks the reference account number matches a user in the user table
+                CheckUserExists();
+
+                if (NoValidationErrors(AccountNumber, "AccountNumber", null, _model) == false || UserExists == false)
                 {
                     AddError($"AccountNumber is invalid");
                 }
@@ -174,17 +171,19 @@ namespace ImporterUI.ViewModels
                 {
                     ClearErrors();
                 }
-
-                getItem();
-
-                if (exists)
-                {
-                    AddError($"AccountNumber is invalid");
-
-                }
-
             }
         }
 
+        private bool UserExists { get; set; }
+        private bool PaymentExists { get; set; }
+        private async void CheckUserExists()
+        {
+            UserExists = await _paymentRepository.ForeignKeyExistsAsync(AccountNumber);
+        }
+
+        private async void CheckPaymentExists()
+        { 
+            PaymentExists = await _paymentRepository.ItemExistsAsync(AdeptRef);
+        }
     }
 }

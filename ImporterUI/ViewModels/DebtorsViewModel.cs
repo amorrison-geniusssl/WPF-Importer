@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -41,7 +42,7 @@ namespace ImporterUI.ViewModels
             {
                 foreach (var debtor in debtors)
                 {
-                    Debtors.Add(new DebtorItemViewModel(debtor));
+                    Debtors.Add(new DebtorItemViewModel(_debtorRepository, debtor));
                 }
             }
             CanInsert = false;
@@ -54,7 +55,7 @@ namespace ImporterUI.ViewModels
 
             try
             {
-                 debtors = await file.ReadDebtorFileAsync(filePath);
+                debtors = await file.ReadDebtorFileAsync(filePath);
                 CanInsert = true;
             }
             catch (Exception)
@@ -70,8 +71,10 @@ namespace ImporterUI.ViewModels
             {
                 foreach (var debtor in debtors)
                 {
+                    Thread.Sleep(5);
                     var newDebtor = new DebtorItemViewModel
                     (
+                        _debtorRepository,
                         debtor.DebtType,
                         debtor.AccountNumber,
                         debtor.AccountName,

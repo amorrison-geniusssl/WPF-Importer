@@ -37,11 +37,8 @@ namespace ImporterDomain.Models
 
         public string Comment { get; set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AccountNumber { get; set; }
-
-        [ForeignKey("AccountNumber")]
-        public DebtorModel Debtor { get; set; }
-
 
 
 

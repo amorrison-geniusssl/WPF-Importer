@@ -30,7 +30,7 @@ namespace ImporterUI
             services.AddTransient<DebtorsViewModel>();
             services.AddTransient<PaymentsViewModel>();
 
-            services.AddTransient<ImporterDbContext>();
+            services.AddTransient<ImporterDb>();
             services.AddTransient<IDebtorRespository, DebtorRespository>();
             services.AddTransient<IPaymentRespository, PaymentRespository>();
         }

@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace ImporterData
 {
-    public class ImporterDbContext : DbContext
+    public class ImporterDb : DbContext
     {
         public DbSet<DebtorModel> Debtors { get; set; }
         public DbSet<PaymentModel> Payments { get; set; }
+
     }
 }

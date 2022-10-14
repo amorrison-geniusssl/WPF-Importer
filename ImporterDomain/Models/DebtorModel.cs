@@ -32,8 +32,7 @@ namespace ImporterDomain.Models
         public string? DebtType { get; set; }
 
         [Key]
-        [Required]
-        [Index(IsUnique = true)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AccountNumber { get; set; }
 
         [Required]
