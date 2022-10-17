@@ -42,7 +42,7 @@ namespace ImporterUI.ViewModels
             {
                 foreach (var debtor in debtors)
                 {
-                    Debtors.Add(new DebtorItemViewModel(_debtorRepository, debtor));
+                    Debtors.Add(new DebtorItemViewModel(_debtorRepository, this, debtor));
                 }
             }
             CanInsert = false;
@@ -75,6 +75,7 @@ namespace ImporterUI.ViewModels
                     var newDebtor = new DebtorItemViewModel
                     (
                         _debtorRepository,
+                        this,
                         debtor.DebtType,
                         debtor.AccountNumber,
                         debtor.AccountName,

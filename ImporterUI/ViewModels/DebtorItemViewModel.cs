@@ -13,18 +13,19 @@ namespace ImporterUI.ViewModels
     public class DebtorItemViewModel : ItemViewModelBase
     {
         private DebtorModel _model;
+        private DebtorsViewModel _parentViewModel;
         private IDebtorRespository _debtorRepository;
 
-
-        public DebtorItemViewModel(IDebtorRespository debtorRepository, DebtorModel model)
+        public DebtorItemViewModel(IDebtorRespository debtorRepository, DebtorsViewModel parentViewModel, DebtorModel model)
         {
             _debtorRepository = debtorRepository;
             _model = model;
         }
 
-        public DebtorItemViewModel(IDebtorRespository debtorRepository, string? debtType, int accountNumber, string? accountName, string? birthDate, double? balance, string? email, long? phoneNumber, string? firstAddress, string? secondAddress, string? thirdAddress, string? postCode)
+        public DebtorItemViewModel(IDebtorRespository debtorRepository, DebtorsViewModel parentViewModel, string? debtType, int accountNumber, string? accountName, string? birthDate, double? balance, string? email, long? phoneNumber, string? firstAddress, string? secondAddress, string? thirdAddress, string? postCode)
         {
             _debtorRepository = debtorRepository;
+            _parentViewModel = parentViewModel;
 
             _model = new DebtorModel();
 
@@ -70,7 +71,9 @@ namespace ImporterUI.ViewModels
 
                 bool debtorExists = _debtorRepository.ItemExists(AccountNumber);
 
-                if (NoValidationErrors(AccountNumber, "AccountNumber", _model, null) == false || debtorExists == true)
+                if (NoValidationErrors(AccountNumber, "AccountNumber", _model, null) == false 
+                    || debtorExists == true
+                    || _parentViewModel.Debtors.Any(x => x != this && x.AccountNumber == this.AccountNumber))
                 {
                     AddError($"AccountNumber is invalid");
                 }
