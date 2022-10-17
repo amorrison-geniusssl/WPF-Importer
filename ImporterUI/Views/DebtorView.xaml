@@ -15,7 +15,8 @@
                   AutoGenerateColumns="False"
                   ColumnWidth="*" 
                   SelectionUnit="FullRow"
-                  HeadersVisibility="Column">
+                  HeadersVisibility="Column"
+                  IsReadOnly="{Binding IsReadOnly}">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="DEBT__TYPE" 

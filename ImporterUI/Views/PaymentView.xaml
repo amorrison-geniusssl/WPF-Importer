@@ -7,12 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid CanUserAddRows="False"
+        <DataGrid x:Name="PaymentGrid" 
+            CanUserAddRows="False"
                   ItemsSource="{Binding Payments}"
                   AutoGenerateColumns="False"
                   ColumnWidth="*" 
                   SelectionUnit="FullRow"
-                  HeadersVisibility="Column">
+                  HeadersVisibility="Column"
+                  IsReadOnly="{Binding IsReadOnly}">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Adept__Ref" 

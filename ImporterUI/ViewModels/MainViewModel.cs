@@ -15,6 +15,7 @@ namespace ImporterUI.ViewModels
         private ValidationViewModelBase? viewModelBase;
         private ItemViewModelBase? itemViewModel;
         private string? _filePath;
+        private string? _viewName;
 
         public MainViewModel(DebtorsViewModel debtorsViewModel, PaymentsViewModel paymentsViewModel)
         {
@@ -27,6 +28,7 @@ namespace ImporterUI.ViewModels
             InsertData = new DelegateCommand(InsertFile, CanInsert);
 
             SelectedViewModel = DebtorsViewModel;
+            //_viewName = $"Debtors";
 
             FilePath = "";
         }
@@ -40,6 +42,16 @@ namespace ImporterUI.ViewModels
             {
                 viewModelBase = value;
                 RaisePropertyChanged();
+
+                if (SelectedViewModel == DebtorsViewModel)
+                {
+                    ViewName = "Insert Debtors";
+                }
+                else if (SelectedViewModel == PaymentsViewModel)
+                {
+                    ViewName = "Insert Payments";
+
+                }
             }
         }
 
@@ -87,6 +99,20 @@ namespace ImporterUI.ViewModels
             }
         }
 
+
+        public string? ViewName
+        {
+            get { return _viewName; }
+            set 
+            { 
+                _viewName = value;
+                RaisePropertyChanged();
+
+                
+            }
+        }
+
+
         public DebtorsViewModel DebtorsViewModel { get; }
         public PaymentsViewModel PaymentsViewModel { get; }
         public DelegateCommand SelectViewModelCommand { get; }
@@ -97,7 +123,7 @@ namespace ImporterUI.ViewModels
         public override async Task LoadAsync()
         {
             await SelectedViewModel.LoadAsync();
-
+            
         }
 
         private async void SelectViewModel(object? parameter)

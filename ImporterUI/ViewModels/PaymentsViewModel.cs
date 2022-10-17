@@ -34,6 +34,7 @@ namespace ImporterUI.ViewModels
         public override async Task LoadAsync()
         {
             Payments.Clear();
+            IsReadOnly = true;
 
             var payments = await _paymentRepository.GetAllAsync();
             if (payments != null)
@@ -55,6 +56,7 @@ namespace ImporterUI.ViewModels
             try
             {
                 payments = await file.ReadPaymentFileAsync(filePath);
+                IsReadOnly = false;
                 CanInsert = true;
             }
             catch (Exception)
@@ -131,6 +133,19 @@ namespace ImporterUI.ViewModels
                 return SelectedPayment != null;
             }
         }
+
+        private bool _isReadOnly;
+
+        public bool IsReadOnly
+        {
+            get { return _isReadOnly; }
+            set 
+            { 
+                _isReadOnly = value;
+                RaisePropertyChanged();
+            }
+        }
+
 
     }
 }

@@ -24,6 +24,7 @@ namespace ImporterUI.ViewModels
     {
         private IDebtorRespository _debtorRepository;
         private DebtorItemViewModel? _selectedDebtor;
+        private bool _isReadOnly;
 
         public DebtorsViewModel(IDebtorRespository debtorRepository)
         {
@@ -36,7 +37,8 @@ namespace ImporterUI.ViewModels
         public override async Task LoadAsync()
         {
             Debtors.Clear();
-
+            IsReadOnly = true;
+            
             var debtors = await _debtorRepository.GetAllAsync();
             if (debtors != null)
             {
@@ -57,6 +59,8 @@ namespace ImporterUI.ViewModels
             {
                 debtors = await file.ReadDebtorFileAsync(filePath);
                 CanInsert = true;
+                IsReadOnly = false;
+
             }
             catch (Exception)
             {
@@ -137,6 +141,18 @@ namespace ImporterUI.ViewModels
             {
                 return SelectedDebtor != null;
             }
-        } 
+        }
+
+
+        public bool IsReadOnly
+        {
+            get { return _isReadOnly; }
+            set
+            {
+                _isReadOnly = value;
+                RaisePropertyChanged();
+            }
+        }
+
     }
 }
