@@ -10,17 +10,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Windows;
+using System.Threading;
+using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Documents;
 
 namespace ImporterUI.ViewModels
 {
     public class PaymentsViewModel : ValidationViewModelBase
     {
         private IPaymentRespository _paymentRepository;
+        private IDebtorRespository _debtorRepository;
         private PaymentItemViewModel? _selectedPayment;
 
-        public PaymentsViewModel(IPaymentRespository paymentRepository)
+        public PaymentsViewModel(IPaymentRespository paymentRepository, IDebtorRespository debtorRespository)
         {
             _paymentRepository = paymentRepository;
+            _debtorRepository = debtorRespository;
         }
 
         public ObservableCollection<PaymentItemViewModel> Payments { get; } = new();
@@ -36,7 +41,7 @@ namespace ImporterUI.ViewModels
                 foreach (var payment in payments)
                 {
 
-                    Payments.Add(new PaymentItemViewModel(_paymentRepository, payment));
+                    Payments.Add(new PaymentItemViewModel(_paymentRepository, _debtorRepository, payment));
                 }
             }
             CanInsert = false;
@@ -65,9 +70,12 @@ namespace ImporterUI.ViewModels
             {
                 foreach (var payment in payments)
                 {
+                    Thread.Sleep(20);
                     var newPayment = new PaymentItemViewModel
                     (
                         _paymentRepository,
+                        _debtorRepository,
+                        this,
                         payment.AdeptRef,
                         payment.Amount,
                         payment.EffectiveDate,
@@ -75,7 +83,6 @@ namespace ImporterUI.ViewModels
                         payment.Method,
                         payment.Comment,
                         payment.AccountNumber
-
                     );
 
                     Payments.Add(newPayment);

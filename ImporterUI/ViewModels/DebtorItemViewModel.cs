@@ -68,9 +68,9 @@ namespace ImporterUI.ViewModels
                 _model.AccountNumber = value;
                 RaisePropertyChanged();
 
-                CheckUserExists();
+                bool debtorExists = _debtorRepository.ItemExists(AccountNumber);
 
-                if (NoValidationErrors(AccountNumber, "AccountNumber", _model, null) == false || DebtorExists == true)
+                if (NoValidationErrors(AccountNumber, "AccountNumber", _model, null) == false || debtorExists == true)
                 {
                     AddError($"AccountNumber is invalid");
                 }
@@ -254,12 +254,6 @@ namespace ImporterUI.ViewModels
                     ClearErrors();
                 }
             }
-        }
-
-        private bool DebtorExists { get; set; }
-        private async void CheckUserExists()
-        {
-            DebtorExists = await _debtorRepository.ItemExistsAsync(AccountNumber);
         }
 
     }

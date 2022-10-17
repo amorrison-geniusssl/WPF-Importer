@@ -12,8 +12,7 @@ namespace ImporterUI.Data
     public interface IPaymentRespository : IGenericRepository<PaymentModel>
     {
         Task<PaymentModel> GetByIdAsync(int accountNumber);
-        Task<bool> ItemExistsAsync(string id);
-        Task<bool> ForeignKeyExistsAsync(int accountNumber);
+        bool ItemExists(string id);
     }
 
     public class PaymentRespository : GenericRepository<PaymentModel, ImporterDb>, IPaymentRespository
@@ -29,31 +28,9 @@ namespace ImporterUI.Data
               .SingleAsync(f => f.AccountNumber == accountNumber);
         }
 
-        public async Task<bool> ForeignKeyExistsAsync(int accountNumber)
+        public bool ItemExists(string id)
         {
-            try
-            {
-                DebtorModel debtor = await Context.Debtors.FindAsync(accountNumber);
-                if (debtor == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public async Task<bool> ItemExistsAsync(string id)
-        {
-            try
-            {
-                PaymentModel payment = await Context.Payments.FindAsync(id);
+                PaymentModel payment = Context.Payments.Find(id);
                 if (payment == null)
                 {
                     return false;
@@ -62,11 +39,6 @@ namespace ImporterUI.Data
                 {
                     return true;
                 }
-            }
-            catch
-            {
-                return false;
-            }
         }
 
     }

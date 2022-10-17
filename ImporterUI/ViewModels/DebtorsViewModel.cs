@@ -71,7 +71,7 @@ namespace ImporterUI.ViewModels
             {
                 foreach (var debtor in debtors)
                 {
-                    Thread.Sleep(5);
+                    Thread.Sleep(20);
                     var newDebtor = new DebtorItemViewModel
                     (
                         _debtorRepository,
@@ -91,7 +91,6 @@ namespace ImporterUI.ViewModels
                     Debtors.Add(newDebtor);
                 }
             }
-
         }
 
         public override async Task InsertData()

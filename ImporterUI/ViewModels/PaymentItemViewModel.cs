@@ -6,23 +6,33 @@ using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using System.Data;
 using System.Threading.Tasks;
+using System.Threading;
+using System.Windows.Documents;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ImporterUI.ViewModels
 {
     public class PaymentItemViewModel : ItemViewModelBase
     {
         private IPaymentRespository _paymentRepository;
+        private IDebtorRespository _debtorRespository;
+        private PaymentsViewModel _parentViewModel;
         private PaymentModel _model;
 
-        public PaymentItemViewModel(IPaymentRespository paymentRepository, PaymentModel model)
+        public PaymentItemViewModel(IPaymentRespository paymentRepository, IDebtorRespository debtorRespository, PaymentModel model)
         {
             _paymentRepository = paymentRepository;
+            _debtorRespository = debtorRespository;
             _model = model;
         }
 
-        public PaymentItemViewModel(IPaymentRespository paymentRepository, string adeptRef, double? amount, string effectiveDate, string source, string method, string comment, int accountNumber)
+        public PaymentItemViewModel(IPaymentRespository paymentRepository, IDebtorRespository debtorRespository, PaymentsViewModel parentViewModel, string adeptRef, double? amount, string effectiveDate, string source, string method, string comment, int accountNumber)
         {
             _paymentRepository = paymentRepository;
+            _debtorRespository = debtorRespository;
+            _parentViewModel = parentViewModel;
+
             _model = new PaymentModel();
 
             AdeptRef = adeptRef;
@@ -32,6 +42,7 @@ namespace ImporterUI.ViewModels
             Method = method;
             Comment = comment;
             AccountNumber = accountNumber;
+
         }
 
 
@@ -43,17 +54,19 @@ namespace ImporterUI.ViewModels
                 _model.AdeptRef = value;
                 RaisePropertyChanged();
 
-                CheckPaymentExists();
+                bool paymentExists = _paymentRepository.ItemExists(AdeptRef);
 
-                if (NoValidationErrors(AdeptRef, "AdeptRef", null, _model) == false || PaymentExists == true)
+
+                if (NoValidationErrors(AdeptRef, "AdeptRef", null, _model) == false 
+                    || paymentExists == true 
+                    || _parentViewModel.Payments.Any(x => x != this && x.AdeptRef == this.AdeptRef))
                 {
-                    AddError($"AdeptRef is invalid");
+                    AddError($"AdeptRef is invalid - Make sure it is at least 7 characters long and is unique");
                 }
                 else
                 {
                     ClearErrors();
                 }
-
             }
         }
 
@@ -84,7 +97,9 @@ namespace ImporterUI.ViewModels
                 _model.EffectiveDate = value;
                 RaisePropertyChanged();
 
-                if (NoValidationErrors(EffectiveDate, "EffectiveDate", null, _model) == false)
+                DateTime dt;
+                if (NoValidationErrors(EffectiveDate, "EffectiveDate", null, _model) == false 
+                    || !DateTime.TryParseExact(_model.EffectiveDate, "dd/MM/yyyy", null, DateTimeStyles.None, out dt))
                 {
                     AddError($"EffectiveDate is invalid");
                 }
@@ -161,9 +176,9 @@ namespace ImporterUI.ViewModels
                 RaisePropertyChanged();
 
                 // Checks the reference account number matches a user in the user table
-                CheckUserExists();
+                bool userExists = _debtorRespository.ItemExists(AccountNumber);
 
-                if (NoValidationErrors(AccountNumber, "AccountNumber", null, _model) == false || UserExists == false)
+                if (NoValidationErrors(AccountNumber, "AccountNumber", null, _model) == false || userExists == false)
                 {
                     AddError($"AccountNumber is invalid");
                 }
@@ -171,19 +186,9 @@ namespace ImporterUI.ViewModels
                 {
                     ClearErrors();
                 }
+
+                
             }
-        }
-
-        private bool UserExists { get; set; }
-        private bool PaymentExists { get; set; }
-        private async void CheckUserExists()
-        {
-            UserExists = await _paymentRepository.ForeignKeyExistsAsync(AccountNumber);
-        }
-
-        private async void CheckPaymentExists()
-        { 
-            PaymentExists = await _paymentRepository.ItemExistsAsync(AdeptRef);
         }
     }
 }

@@ -24,20 +24,26 @@ namespace ImporterDomain.Models
         }
 
         [Key]
+        [Required]
+        [MinLength(7), MaxLength(7)]
         public string AdeptRef { get; set; }
 
         [Required]
         public double? Amount { get; set; }
 
+        [Required]
         public string EffectiveDate { get; set; }
 
+        [Required]
         public string Source { get; set; }
 
+        [Required]
         public string Method { get; set; }
 
         public string Comment { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Required]
         public int AccountNumber { get; set; }
 
 

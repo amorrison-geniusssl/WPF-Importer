@@ -12,7 +12,7 @@ namespace ImporterUI.Data
     public interface IDebtorRespository : IGenericRepository<DebtorModel>
     {
         Task<DebtorModel> GetByIdAsync(int friendId);
-        Task<bool> ItemExistsAsync(int accountNumber);
+        bool ItemExists(int accountNumber);
     }
 
     public class DebtorRespository : GenericRepository<DebtorModel, ImporterDb>, IDebtorRespository
@@ -28,11 +28,10 @@ namespace ImporterUI.Data
               .SingleAsync(f => f.AccountNumber == accountNumber);
         }
 
-        public async Task<bool> ItemExistsAsync(int accountNumber)
+        public bool ItemExists(int accountNumber)
         {
-            try
-            {
-                DebtorModel debtor = await Context.Debtors.FindAsync(accountNumber);
+
+                DebtorModel debtor = Context.Debtors.Find(accountNumber);
                 if (debtor == null)
                 {
                     return false;
@@ -41,11 +40,6 @@ namespace ImporterUI.Data
                 {
                     return true;
                 }
-            }
-            catch
-            {
-                return false;
-            }
         }
 
     }
