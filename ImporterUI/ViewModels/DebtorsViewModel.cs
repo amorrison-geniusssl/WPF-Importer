@@ -64,7 +64,7 @@ namespace ImporterUI.ViewModels
             }
             catch (Exception)
             {
-                var dg = new Action(() => { MessageBox.Show("Invalid Data:= Please enter a csv file with the correct Debtor fields"); });
+                var dg = new Action(() => { MessageBox.Show("Invalid Data: Please enter a csv file with the correct fields for debtors"); });
                 Dispatcher.CurrentDispatcher.BeginInvoke(dg);
                 return;
             }
